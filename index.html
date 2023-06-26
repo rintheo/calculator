@@ -8,63 +8,65 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=VT323&display=swap" rel="stylesheet">  </head>
+    
   <body>
-      <div class="site-container flex-column">
-        <main class="main flex">
-          <div class="calculator flex-column">
-            <div class="top flex">
-              <h1>CASYO</h1>
-              <h2>fx-001EZ CORE</h2>
-            </div>
-            <div class="screen">
-              <p class="screen-top">1+1</p> <!-- 30 characters max-->
-              <p class="screen-bottom">2</p> <!-- 17 characters max-->
-            </div>
-            <div class="buttons-container flex">
-              <div class="column-4-5 flex-column">
-                <div class="row-1-4 flex">
-                  <button id="num7" class="button">7</button>
-                  <button id="num8" class="button">8</button>
-                  <button id="num9" class="button">9</button>
-                  <button id="numDivide" class="button">÷</button>
+    <div class="site-container flex-column">
+      <main class="main flex">
+        <div class="calculator flex-column">
+          <div class="top flex">
+            <h1>CASYO</h1>
+            <h2>fx-001EZ CORE</h2>
+          </div>
+          <div class="screen">
+            <p id="screenTop" class="screen-top hidden flex">1</p> <!-- 30 characters max-->
+            <p id="screenBottom" class="screen-bottom flex">0</p> <!-- 17 characters max-->
+          </div>
+          <div class="buttons-container flex">
+            <div class="column-4-5 flex-column">
+              <div class="row-1-4 flex">
+                <button data-code="Numpad7" data-input="7" class="button">7</button>
+                <button data-code="Numpad8" data-input="8" class="button">8</button>
+                <button data-code="Numpad9" data-input="9" class="button">9</button>
+                <button data-code="NumpadDivide" data-input="/" class="button">÷</button>
+              </div>
+              <div class="row-1-4 flex">
+                <button data-code="Numpad4" data-input="4" class="button">4</button>
+                <button data-code="Numpad5" data-input="5" class="button">5</button>
+                <button data-code="Numpad6" data-input="6" class="button">6</button>
+                <button data-code="NumpadMultiply" data-input="*" class="button">×</button>
+              </div>              
+              <div class="row-1-4 flex">
+                <button data-code="Numpad1" data-input="1" class="button">1</button>
+                <button data-code="Numpad2" data-input="2" class="button">2</button>
+                <button data-code="Numpad3" data-input="3" class="button">3</button>
+                <button data-code="NumpadSubtract" data-input="-" class="button">−</button>
+              </div>
+              <div class="row-1-4 flex">
+                <div class="row-1-4-1 flex">
+                  <button data-code="Numpad0" data-input="0" class="button">0</button>
                 </div>
-                <div class="row-1-4 flex">
-                  <button id="num4" class="button">4</button>
-                  <button id="num5" class="button">5</button>
-                  <button id="num6" class="button">6</button>
-                  <button id="numMultiply" class="button">×</button>
-                </div>              
-                <div class="row-1-4 flex">
-                  <button id="num1" class="button">1</button>
-                  <button id="num2" class="button">2</button>
-                  <button id="num3" class="button">3</button>
-                  <button id="numMinus" class="button">−</button>
-                </div>
-                <div class="row-1-4 flex">
-                  <div class="row-1-4-1 flex">
-                    <button id="num0" class="button">0</button>
-                  </div>
-                  <div class="row-1-4-2 flex">
-                    <button id="numPeriod" class="button">.</button>
-                    <button id="numPlus" class="button">+</button>
-                  </div>
+                <div class="row-1-4-2 flex">
+                  <button data-code="NumpadDecimal" data-input="." class="button">.</button>
+                  <button data-code="NumpadAdd" data-input="+" class="button">+</button>
                 </div>
               </div>
-              <div class="column-1-5 flex-column">
-                <div class="column-1-5-1 flex-column">
-                  <button id="numAllClear" class="button">AC</button>
-                  <button id="numDelete" class="button">DEL</button>
-                </div>
-                <div class="column-1-5-2 flex-column">
-                  <button id="numEquals" class="button">=</button>
-                </div>
+            </div>
+            <div class="column-1-5 flex-column">
+              <div class="column-1-5-1 flex-column">
+                <button data-code="Delete" class="button">AC</button>
+                <button data-code="Backspace" class="button">DEL</button>
+              </div>
+              <div class="column-1-5-2 flex-column">
+                <button data-code="NumpadEnter" class="button">=</button>
               </div>
             </div>
           </div>
-        </main>
-        <footer class="footer">
-          <a href="https://www.vecteezy.com/free-vector/abstract-background">Abstract Background Vectors by Vecteezy</a>
-        </footer>
-      </div>
+        </div>
+      </main>
+      <footer class="footer">
+        <a href="https://www.vecteezy.com/free-vector/abstract-background">Abstract Background Vectors by Vecteezy</a>
+      </footer>
+    </div>
   </body>
+  <script src="script.js"></script>
 </html>
