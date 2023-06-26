@@ -1,0 +1,158 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+html,
+body,
+h1, h2, h3, h4, h5, h6, 
+p {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.site-container {
+  background-image: url("images/background.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.main {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer {
+  padding: 5px;
+  color: gray;
+  font-size: 10px;
+}
+
+.footer > a:hover {
+  text-decoration: underline;
+}
+
+.calculator {
+  background: #22252f;
+  border: #727984 outset 0.25vmin;
+  border-radius: 2vmin;
+  height: 70vmin;
+  width: 60vmin;
+  margin: 16px;
+  padding: 3vmin;
+  gap: 4vmin;
+  color: white;
+  box-shadow: 0.5vmin 0.5vmin 1vmin #48538e;
+}
+
+.top {
+  justify-content: space-between;
+}
+
+.top > h1 {
+  font-family: 'Belanosima', sans-serif;
+  font-size: 3vmin;
+  font-weight: 400;
+}
+
+.top > h2 {
+  font-size: 2vmin;
+  font-weight: 300;
+}
+
+.screen {
+  background: #d8ebd7;
+  border: #727984 inset 0.25vmin;
+  border-radius: 1vmin;
+  height: 12vmin;
+  padding: 0.5vmin 2.5vmin;
+  text-align: right;
+  color: #48538e;
+}
+
+.screen-top { 
+  font-family: 'VT323', monospace;
+  font-size: 4vmin;
+}
+
+.screen-bottom {
+  font-family: 'VT323', monospace;
+  font-size: 7vmin;
+}
+
+
+.buttons-container,
+.row-1-4,
+.row-1-4-1,
+.row-1-4-2 {
+  flex: 1;
+  gap: 1vmin;
+}
+
+.column-1-5-1,
+.column-1-5-2,
+.column-1-5 {
+  flex: 1;
+  gap: 2vmin;
+}
+
+.column-4-5 {
+  flex: 4;
+  gap: 2vmin;
+}
+
+.button {
+  flex: 1;
+  background: #717a84;
+  border: #b2c0d0 outset 0.25vmin;
+  border-radius: 1vmin;
+  color: white;
+  font-size: 3vmin;
+}
+
+.button#numAllClear,
+.button#numDelete {
+  background: #dd8f42;
+  border: #ffbc4c outset 0.25vmin;  
+  font-weight: 600;
+}
+
+.button:hover {
+  background: #919daa;
+}
+
+.button:active {
+  transform: scale(0.97);
+  border: #919daa inset 0.25vmin;  
+}
+
+.button#numAllClear:hover,
+.button#numDelete:hover {
+  background: #ffb04c;
+}
+
+.button#numAllClear:active,
+.button#numDelete:active {
+  transform: scale(0.97);
+  border: #ffb04c inset 0.25vmin;  
+}
+
+
