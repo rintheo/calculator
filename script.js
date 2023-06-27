@@ -1,8 +1,8 @@
 let operandCurrent = '0';
 let operandPrevious = '';
 let operator = '';
-let result = 0;
 let justOperated = false;
+let isLocked =  false;
 
 const screenTop = document.querySelector('#screenTop');
 const screenBottom = document.querySelector('#screenBottom');
@@ -26,23 +26,48 @@ const buttonOperators = [
     'NumpadSubtract', 
     'NumpadMultiply', 
     'NumpadDivide',
-    'NumpadEnter'
+    'NumpadEnter',
 ];
 
+const buttonAll = [
+    ...buttonNumbers,
+    ...buttonOperators,
+    'NumpadDecimal',
+    'Backspace',
+    'Delete',
+]
+
 function initializeButtons() {
+    window.addEventListener('keydown', clickButton);
     buttons.forEach((button) => {
         button.addEventListener('click', clickButton);
-        button.classList.remove('disabled');
     });
+    if (isLocked) unlockCalculator();
 }
 
 function clickButton(e) {
+    console.clear(); // For debugging
 
-    console.clear();
-    
-    const keyCode = this.getAttribute("data-code");
-    const keyInput = this.getAttribute("data-input");
+    if (e.type === 'keydown' && !buttonAll.includes(e.code)) {
+        return;
+    }  
+    else {
+        e.preventDefault();
+    }
+        
+    const keyCode = (e.type === 'click') ?
+                     this.getAttribute("data-code") :
+                     e.code;
+    const keyInput = (e.type === 'click') ?
+                      this.getAttribute("data-input") :
+                      e.key ;
 
+    if ((!isLocked) || (isLocked && keyCode === 'Delete')) {
+        processInput(keyCode, keyInput);
+    }
+}
+
+function processInput(keyCode, keyInput) {
     if (buttonNumbers.includes(keyCode)) {
         if (operandCurrent === '0' || justOperated) {
             operandCurrent = keyInput;
@@ -178,10 +203,17 @@ function checkValid(num) {
 function lockCalculator() {
     buttons.forEach((button) => {
         if (button.getAttribute('data-code') !== 'Delete') {
-            button.removeEventListener('click', clickButton);
-            button.classList.add('disabled');
+            button.classList.add('locked');   
         }
     });
+    isLocked = true;
+}
+
+function unlockCalculator() {
+    buttons.forEach((button) => {
+        button.classList.remove('locked');
+    });
+    isLocked = false;
 }
 
 initializeButtons()
