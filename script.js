@@ -62,29 +62,10 @@ function clickButton(e) {
         }
     }
     else if (buttonOperators.includes(keyCode)) {
-        console.log('Condition for operators was fired.'); // For debugging
         if (operandPrevious && operandCurrent) {
-            console.log('Operated!');
-            screenTop.classList.remove('hidden');
-            screenTop.textContent = screenBottom.textContent;
-            switch (operator) {
-                case '+':
-                    operandCurrent = exponential(round(add(operandPrevious, operandCurrent)));
-                    break;
-                case '-':
-                    operandCurrent = exponential(round(subtract(operandPrevious, operandCurrent)));
-                    break;
-                case '*':
-                    operandCurrent = exponential(round(multiply(operandPrevious, operandCurrent)));
-                    break;
-                case '/':
-                    operandCurrent = exponential(round(divide(operandPrevious, operandCurrent)));
-                    break;
-            }
-            operandPrevious = '';
-            operator = '';
-            justOperated = true;
+            operation();
         }
+
         if (keyCode !== 'NumpadEnter') {
             if (operandCurrent) {
                 operandPrevious = operandCurrent;
@@ -96,6 +77,10 @@ function clickButton(e) {
     else if (keyCode === 'Delete') {
         allClear();
     }
+    else if (keyCode === 'Backspace') {
+        backspace();
+    }
+
     screenBottom.textContent = `${operandPrevious}${operator}${operandCurrent}`;                
 
     console.log(`operandCurrent:  ${typeof operandCurrent} '${operandCurrent}'`); // For debugging
@@ -119,6 +104,28 @@ function divide(a, b) {
     return parseFloat(a) / parseFloat(b);
 }
 
+function operation() {
+    screenTop.classList.remove('hidden');
+    screenTop.textContent = screenBottom.textContent;
+    switch (operator) {
+        case '+':
+            operandCurrent = exponential(round(add(operandPrevious, operandCurrent)));
+            break;
+        case '-':
+            operandCurrent = exponential(round(subtract(operandPrevious, operandCurrent)));
+            break;
+        case '*':
+            operandCurrent = exponential(round(multiply(operandPrevious, operandCurrent)));
+            break;
+        case '/':
+            operandCurrent = exponential(round(divide(operandPrevious, operandCurrent)));
+            break;
+    }
+    operandPrevious = '';
+    operator = '';
+    justOperated = true;
+}
+
 function round(num) {
     if ((num.toString().split('.')[0].length) < 17) {
         const multiplier = 10 ** (17 - 1 - num.toString().split('.')[0].length);
@@ -136,4 +143,10 @@ function allClear() {
     operandPrevious = '';
     operator = '';    
     screenTop.classList.add('hidden');
+}
+
+function backspace() {
+    if (operandCurrent) {
+        operandCurrent = operandCurrent.slice(0, operandCurrent.toString().length - 1);
+    }
 }
