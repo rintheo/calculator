@@ -146,7 +146,7 @@ function allClear() {
 }
 
 function backspace() {
-    if (operandCurrent) {
+    if (operandCurrent && !justOperated) {
         operandCurrent = operandCurrent.slice(0, operandCurrent.toString().length - 1);
     }
 }
