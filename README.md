@@ -1,5 +1,5 @@
 # calculator
-A simple calculator made using HTML, CSS and JavaScript
+A simple calculator made using HTML, CSS and JavaScript. The design is inspired by CASIO scientific calculators.
 
 ## Features
 - Basic calculator operations:
