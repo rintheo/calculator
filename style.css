@@ -96,6 +96,7 @@ a {
   font-family: 'VT323', monospace;
   justify-content: flex-end;
   overflow: hidden;
+  white-space: nowrap;
 }
 
 .screen-top { 

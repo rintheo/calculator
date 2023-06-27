@@ -2,7 +2,6 @@ let operandCurrent = '0';
 let operandPrevious = '';
 let operator = '';
 let result = 0;
-let isOperatorActive = false;
 let justOperated = false;
 
 const screenTop = document.querySelector('#screenTop');
@@ -44,11 +43,6 @@ function clickButton(e) {
  
     if (buttonNumbers.includes(keyCode)) {
         console.log('Condition 1 was fired.'); // For debugging
-        if (isOperatorActive) {
-            isOperatorActive = false;
-            operandPrevious = operandCurrent;
-            operandCurrent = '';
-        }
 
         if (operandCurrent === '0' || justOperated) {
             operandCurrent = keyInput;
@@ -57,27 +51,34 @@ function clickButton(e) {
         else {
             operandCurrent += keyInput;
         }
-
-        screenBottom.textContent = `${operandPrevious}${operator}${operandCurrent}`;                
-
+    }
+    else if (keyCode === 'NumpadDecimal') {
+        if (operandCurrent === '' || justOperated) {
+            operandCurrent = '0.';
+            justOperated = false;
+        }
+        else if (!operandCurrent.toString().includes('.')) {
+            operandCurrent += keyInput;
+        }
     }
     else if (buttonOperators.includes(keyCode)) {
         console.log('Condition for operators was fired.'); // For debugging
-        if (operandPrevious) {
+        if (operandPrevious && operandCurrent) {
+            console.log('Operated!');
             screenTop.classList.remove('hidden');
             screenTop.textContent = screenBottom.textContent;
             switch (operator) {
                 case '+':
-                    operandCurrent = add(operandPrevious, operandCurrent);
+                    operandCurrent = exponential(round(add(operandPrevious, operandCurrent)));
                     break;
                 case '-':
-                    operandCurrent = subtract(operandPrevious, operandCurrent);
+                    operandCurrent = exponential(round(subtract(operandPrevious, operandCurrent)));
                     break;
                 case '*':
-                    operandCurrent = multiply(operandPrevious, operandCurrent);
+                    operandCurrent = exponential(round(multiply(operandPrevious, operandCurrent)));
                     break;
                 case '/':
-                    operandCurrent = divide(operandPrevious, operandCurrent);
+                    operandCurrent = exponential(round(divide(operandPrevious, operandCurrent)));
                     break;
             }
             operandPrevious = '';
@@ -85,41 +86,54 @@ function clickButton(e) {
             justOperated = true;
         }
         if (keyCode !== 'NumpadEnter') {
-            isOperatorActive = true;
+            if (operandCurrent) {
+                operandPrevious = operandCurrent;
+                operandCurrent = '';
+            }
             operator = keyInput;
         }
-        screenBottom.textContent = `${operandCurrent}${operator}`;
     }
-
     else if (keyCode === 'Delete') {
         allClear();
     }
-    
-    console.log(`operandCurrent:  ${operandCurrent}`); // For debugging
-    console.log(`operator:        ${operator}`); // For debugging
-    console.log(`operandPrevious: ${operandPrevious}`); // For debugging
+    screenBottom.textContent = `${operandPrevious}${operator}${operandCurrent}`;                
+
+    console.log(`operandCurrent:  ${typeof operandCurrent} '${operandCurrent}'`); // For debugging
+    console.log(`operator:        ${typeof operator} '${operator}'`); // For debugging
+    console.log(`operandPrevious: ${typeof operandPrevious} '${operandPrevious}'`); // For debugging
 }
 
 function add(a, b) {
-    return parseInt(a) + parseInt(b);
+    return parseFloat(a) + parseFloat(b);
 }
 
 function subtract(a, b) {
-    return parseInt(a) - parseInt(b);
+    return parseFloat(a) - parseFloat(b);
 }
 
 function multiply(a, b) {
-    return parseInt(a) * parseInt(b);
+    return parseFloat(a) * parseFloat(b);
 }
 
 function divide(a, b) {
-    return parseInt(a) / parseInt(b);
+    return parseFloat(a) / parseFloat(b);
+}
+
+function round(num) {
+    if ((num.toString().split('.')[0].length) < 17) {
+        const multiplier = 10 ** (17 - 1 - num.toString().split('.')[0].length);
+        return Math.round(num * multiplier) / multiplier;
+    }
+    return num;
+}
+
+function exponential(num) {
+    return (num > 1e16) ? num.toExponential(11): num;
 }
 
 function allClear() {
-    screenTop.classList.add('hidden');
     operandCurrent = '0';
     operandPrevious = '';
     operator = '';    
-    screenBottom.textContent = `${operandPrevious}${operator}${operandCurrent}`;                
+    screenTop.classList.add('hidden');
 }
