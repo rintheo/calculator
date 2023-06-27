@@ -35,15 +35,13 @@ buttons.forEach((button) => {
 });
 
 function clickButton(e) {
+
+    console.clear();
+    
     const keyCode = this.getAttribute("data-code");
     const keyInput = this.getAttribute("data-input");
 
-    console.clear(); // For debugging
-    console.log(`keyInput = ${keyInput}, ${typeof keyInput}`); // For debugging
- 
     if (buttonNumbers.includes(keyCode)) {
-        console.log('Condition 1 was fired.'); // For debugging
-
         if (operandCurrent === '0' || justOperated) {
             operandCurrent = keyInput;
             justOperated = false;
@@ -67,10 +65,7 @@ function clickButton(e) {
         }
 
         if (keyCode !== 'NumpadEnter') {
-            if (operandCurrent) {
-                operandPrevious = operandCurrent;
-                operandCurrent = '';
-            }
+            switchOperands()
             operator = keyInput;
         }
     }
@@ -81,11 +76,42 @@ function clickButton(e) {
         backspace();
     }
 
-    screenBottom.textContent = `${operandPrevious}${operator}${operandCurrent}`;                
-
+    screenBottom.textContent = `${operandPrevious}${operator}${operandCurrent}`;       
+    
     console.log(`operandCurrent:  ${typeof operandCurrent} '${operandCurrent}'`); // For debugging
     console.log(`operator:        ${typeof operator} '${operator}'`); // For debugging
     console.log(`operandPrevious: ${typeof operandPrevious} '${operandPrevious}'`); // For debugging
+}
+
+function backspace() {
+    if (operandCurrent.toString().length <= 1 && !operandPrevious && !operator) {
+        operandCurrent = '0';
+    }
+    else if (operandCurrent) {
+        operandCurrent = operandCurrent.toString().slice(0, operandCurrent.toString().length - 1);
+    }
+    else if (!operandCurrent && operator) {
+        operator = '';
+        switchOperands()
+    }
+}
+
+function switchOperands() {
+    if (operandCurrent) {
+        operandPrevious = operandCurrent;
+        operandCurrent = '';
+    }
+    else if (!operator){
+        operandCurrent = operandPrevious;
+        operandPrevious = '';
+    }
+}
+
+function allClear() {
+    operandCurrent = '0';
+    operandPrevious = '';
+    operator = '';    
+    screenTop.classList.add('hidden');
 }
 
 function add(a, b) {
@@ -138,15 +164,3 @@ function exponential(num) {
     return (num > 1e16) ? num.toExponential(11): num;
 }
 
-function allClear() {
-    operandCurrent = '0';
-    operandPrevious = '';
-    operator = '';    
-    screenTop.classList.add('hidden');
-}
-
-function backspace() {
-    if (operandCurrent && !justOperated) {
-        operandCurrent = operandCurrent.slice(0, operandCurrent.toString().length - 1);
-    }
-}
