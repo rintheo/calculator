@@ -1,4 +1,4 @@
-let operandCurrent = 0;
+let operandCurrent = '0';
 let operandPrevious = '';
 let operator = '';
 let result = 0;
@@ -50,7 +50,7 @@ function clickButton(e) {
             operandCurrent = '';
         }
 
-        if (operandCurrent == 0 || justOperated) {
+        if (operandCurrent === '0' || justOperated) {
             operandCurrent = keyInput;
             justOperated = false;
         }
@@ -90,6 +90,11 @@ function clickButton(e) {
         }
         screenBottom.textContent = `${operandCurrent}${operator}`;
     }
+
+    else if (keyCode === 'Delete') {
+        allClear();
+    }
+    
     console.log(`operandCurrent:  ${operandCurrent}`); // For debugging
     console.log(`operator:        ${operator}`); // For debugging
     console.log(`operandPrevious: ${operandPrevious}`); // For debugging
@@ -109,4 +114,12 @@ function multiply(a, b) {
 
 function divide(a, b) {
     return parseInt(a) / parseInt(b);
+}
+
+function allClear() {
+    screenTop.classList.add('hidden');
+    operandCurrent = '0';
+    operandPrevious = '';
+    operator = '';    
+    screenBottom.textContent = `${operandPrevious}${operator}${operandCurrent}`;                
 }
