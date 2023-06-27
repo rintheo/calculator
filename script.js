@@ -7,6 +7,7 @@ let isLocked =  false;
 const screenTop = document.querySelector('#screenTop');
 const screenBottom = document.querySelector('#screenBottom');
 const buttons = document.querySelectorAll('.button');
+const currentYear = document.querySelector('#currentYear')
 
 const buttonNumbers = [
     'Numpad1',
@@ -216,4 +217,5 @@ function unlockCalculator() {
     isLocked = false;
 }
 
+currentYear.textContent = new Date().getFullYear();
 initializeButtons()

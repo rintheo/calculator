@@ -175,3 +175,17 @@ a {
   color: #d0863d;
   border: #cc963c outset 0.25vmin; 
 }
+
+.github-logo {
+  width: 2vmin;
+  transition-duration: 0.1s;
+}
+
+.github-logo:hover {
+  transform: scale(1.1);
+}
+
+.copyright {
+  align-items: center;
+  font-size: 1.5vmin;
+}
