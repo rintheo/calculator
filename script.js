@@ -1,9 +1,9 @@
 let operandCurrent = 0;
-let operandPrevious = '0';
+let operandPrevious = '';
 let operator = '';
 let result = 0;
-let isOperatorPressed = false;
 let isOperatorActive = false;
+let justOperated = false;
 
 const screenTop = document.querySelector('#screenTop');
 const screenBottom = document.querySelector('#screenBottom');
@@ -22,7 +22,13 @@ const buttonNumbers = [
     'Numpad0',
 ];
 
-const buttonOperators = ['NumpadAdd', 'NumpadSubtract', 'NumpadMultiply', 'NumpadDivide'];
+const buttonOperators = [
+    'NumpadAdd', 
+    'NumpadSubtract', 
+    'NumpadMultiply', 
+    'NumpadDivide',
+    'NumpadEnter'
+];
 
 
 buttons.forEach((button) => {
@@ -43,29 +49,64 @@ function clickButton(e) {
             operandPrevious = operandCurrent;
             operandCurrent = '';
         }
-        if (operandCurrent == 0) {
+
+        if (operandCurrent == 0 || justOperated) {
             operandCurrent = keyInput;
+            justOperated = false;
         }
         else {
             operandCurrent += keyInput;
         }
 
-        if (!isOperatorPressed) {
-            screenBottom.textContent = operandCurrent;                
-        }
-        else {
-            screenBottom.textContent = `${operandPrevious}${operator}${operandCurrent}`;                
-        }
+        screenBottom.textContent = `${operandPrevious}${operator}${operandCurrent}`;                
+
     }
     else if (buttonOperators.includes(keyCode)) {
         console.log('Condition for operators was fired.'); // For debugging
-        isOperatorPressed = true; 
-        isOperatorActive = true;
-        operator = keyInput;
+        if (operandPrevious) {
+            screenTop.classList.remove('hidden');
+            screenTop.textContent = screenBottom.textContent;
+            switch (operator) {
+                case '+':
+                    operandCurrent = add(operandPrevious, operandCurrent);
+                    break;
+                case '-':
+                    operandCurrent = subtract(operandPrevious, operandCurrent);
+                    break;
+                case '*':
+                    operandCurrent = multiply(operandPrevious, operandCurrent);
+                    break;
+                case '/':
+                    operandCurrent = divide(operandPrevious, operandCurrent);
+                    break;
+            }
+            operandPrevious = '';
+            operator = '';
+            justOperated = true;
+        }
+        if (keyCode !== 'NumpadEnter') {
+            isOperatorActive = true;
+            operator = keyInput;
+        }
         screenBottom.textContent = `${operandCurrent}${operator}`;
     }
-
-    console.log(`operandCurrent: ${operandCurrent}`); // For debugging
-    console.log(`operator: ${operator}`); // For debugging
+    console.log(`operandCurrent:  ${operandCurrent}`); // For debugging
+    console.log(`operator:        ${operator}`); // For debugging
     console.log(`operandPrevious: ${operandPrevious}`); // For debugging
+}
+
+function add(a, b) {
+    return parseInt(a) + parseInt(b);
+}
+
+function subtract(a, b) {
+    return parseInt(a) - parseInt(b);
+}
+
+function multiply(a, b) {
+    return parseInt(a) * parseInt(b);
+}
+
+function divide(a, b) {
+    return parseInt(a) / parseInt(b);
 }
