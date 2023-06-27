@@ -29,10 +29,12 @@ const buttonOperators = [
     'NumpadEnter'
 ];
 
-
-buttons.forEach((button) => {
-    button.addEventListener('click', clickButton);
-});
+function initializeButtons() {
+    buttons.forEach((button) => {
+        button.addEventListener('click', clickButton);
+        button.classList.remove('disabled');
+    });
+}
 
 function clickButton(e) {
 
@@ -61,7 +63,7 @@ function clickButton(e) {
     }
     else if (buttonOperators.includes(keyCode)) {
         if (operandPrevious && operandCurrent) {
-            operation();
+            operate();
         }
 
         if (keyCode !== 'NumpadEnter') {
@@ -112,6 +114,7 @@ function allClear() {
     operandPrevious = '';
     operator = '';    
     screenTop.classList.add('hidden');
+    initializeButtons()
 }
 
 function add(a, b) {
@@ -130,7 +133,7 @@ function divide(a, b) {
     return parseFloat(a) / parseFloat(b);
 }
 
-function operation() {
+function operate() {
     screenTop.classList.remove('hidden');
     screenTop.textContent = screenBottom.textContent;
     switch (operator) {
@@ -147,6 +150,7 @@ function operation() {
             operandCurrent = exponential(round(divide(operandPrevious, operandCurrent)));
             break;
     }
+    checkValid(operandCurrent);
     operandPrevious = '';
     operator = '';
     justOperated = true;
@@ -164,3 +168,20 @@ function exponential(num) {
     return (num > 1e16) ? num.toExponential(11): num;
 }
 
+function checkValid(num) {
+    if (!isFinite(num)) {
+        operandCurrent = 'Math ERROR';
+        lockCalculator();
+    }
+}
+
+function lockCalculator() {
+    buttons.forEach((button) => {
+        if (button.getAttribute('data-code') !== 'Delete') {
+            button.removeEventListener('click', clickButton);
+            button.classList.add('disabled');
+        }
+    });
+}
+
+initializeButtons()

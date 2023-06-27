@@ -164,4 +164,14 @@ a {
   border: #ffb04c inset 0.25vmin;  
 }
 
+.button.disabled {
+  background: #656d76;
+  color: gray;
+  border: #86909d outset 0.25vmin;  
+}
 
+.column-1-5-1 > .button.disabled {
+  background: #aa6e32;
+  color: #d0863d;
+  border: #cc963c outset 0.25vmin; 
+}
