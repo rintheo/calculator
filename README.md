@@ -1,5 +1,5 @@
 # calculator
-A simple calculator made using HTML, CSS and JavaScript. The design is inspired by CASIO scientific calculators.
+A simple calculator made using HTML, CSS and JavaScript. The design is inspired by CASIO scientific calculators. [View Demo](https://rintheo.github.io/calculator/)
 
 ## Features
 - Basic calculator operations:
@@ -20,3 +20,6 @@ A simple calculator made using HTML, CSS and JavaScript. The design is inspired 
 ## Issues
 - Results exceeding where scientific notation is at e±100 will overflow the screen.
 - Can not handle extremely small/large numbers with exact precision.
+
+## Credits
+- Background image from [Vecteezy](https://www.vecteezy.com/free-vector/abstract-background)
